@@ -85,7 +85,7 @@ Buka Dashboard **Cloudflare Zero Trust** -> **Networks** -> **Tunnels**:
    - **Subdomain**: `lumbung`
    - **Domain**: `alipayment.id`
    - **Service Type**: `HTTP`
-   - **URL**: `localhost:80` (Atau `127.0.0.1:80`)
+   - **URL**: `localhost:8081` (Atau `127.0.0.1:8081`)
 4. Simpan (Save hostname).
 
 ---
