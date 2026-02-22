@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: lumbunghijau_backend
+    restart: unless-stopped
+    environment:
+      - APP_NAME="LumbungHijau"
+      - APP_ENV=production
+      - APP_KEY=${APP_KEY}
+      - APP_DEBUG=false
+      - APP_URL=${APP_URL}
+      - ASSET_URL=${ASSET_URL}
+      - FORCE_HTTPS=${FORCE_HTTPS}
+      - DB_CONNECTION=sqlite
+      - DB_DATABASE=/var/www/html/database/database.sqlite
+      # Ensure Sanctum allows the same domain without CORS issues
+      - SANCTUM_STATEFUL_DOMAINS=${SANCTUM_STATEFUL_DOMAINS}
+      - SESSION_DOMAIN=${SESSION_DOMAIN}
+      - LOG_CHANNEL=single
+    volumes:
+      - ./backend/database:/var/www/html/database
+      - lumbunghijau_storage:/var/www/html/storage
+    healthcheck:
+      test: [ "CMD-SHELL", "php-fpm -t || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - lumbunghijau_net
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lumbunghijau_web
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    volumes:
+      # Mount storage volume so Nginx can directly serve static files (images)
+      - lumbunghijau_storage:/var/www/html/storage
+    networks:
+      - lumbunghijau_net
+
+networks:
+  lumbunghijau_net:
+    driver: bridge
+
+volumes:
+  lumbunghijau_storage:
+    name: lumbunghijau_storage
