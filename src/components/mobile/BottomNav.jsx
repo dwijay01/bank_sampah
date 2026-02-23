@@ -1,9 +1,10 @@
 import { NavLink } from 'react-router-dom';
-import { Home, Clock, User, Truck, Trophy } from 'lucide-react';
+import { Home, Clock, User, Truck, Trophy, Gift } from 'lucide-react';
 
 const wargaNav = [
     { to: '/app', label: 'Beranda', icon: Home },
     { to: '/app/history', label: 'Riwayat', icon: Clock },
+    { to: '/app/rewards', label: 'Toko Poin', icon: Gift },
     { to: '/app/leaderboard', label: 'Peringkat', icon: Trophy },
     { to: '/app/profile', label: 'Profil', icon: User },
 ];

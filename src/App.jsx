@@ -13,8 +13,14 @@ import Pickup from './pages/app/Pickup';
 import History from './pages/app/History';
 import Leaderboard from './pages/app/Leaderboard';
 import Profile from './pages/app/Profile';
+import Rewards from './pages/app/Rewards';
+import MyVouchers from './pages/app/MyVouchers';
+
 import CourierHome from './pages/app/CourierHome';
 import CourierScan from './pages/app/CourierScan';
+
+import PartnerHome from './pages/app/PartnerHome';
+import PartnerScan from './pages/app/PartnerScan';
 
 export default function App() {
   return (
@@ -40,11 +46,17 @@ export default function App() {
           <Route path="/app/pickup" element={<Pickup />} />
           <Route path="/app/history" element={<History />} />
           <Route path="/app/leaderboard" element={<Leaderboard />} />
+          <Route path="/app/rewards" element={<Rewards />} />
+          <Route path="/app/vouchers" element={<MyVouchers />} />
           <Route path="/app/profile" element={<Profile />} />
 
           {/* Courier routes */}
           <Route path="/app/courier" element={<CourierHome />} />
           <Route path="/app/courier/scan/:pickupId" element={<CourierScan />} />
+
+          {/* Mitra routes */}
+          <Route path="/app/partner" element={<PartnerHome />} />
+          <Route path="/app/partner/scan" element={<PartnerScan />} />
         </Route>
       </Routes>
     </BrowserRouter>

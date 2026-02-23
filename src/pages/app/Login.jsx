@@ -40,7 +40,9 @@ export default function Login() {
                 setMode('otp');
             } else {
                 const userRole = data.data.user?.role;
-                navigate(userRole === 'kurir' ? '/app/courier' : '/app');
+                if (userRole === 'kurir') navigate('/app/courier');
+                else if (userRole === 'mitra') navigate('/app/partner');
+                else navigate('/app');
             }
         } catch (err) {
             setError('Gagal terhubung ke server.');
@@ -183,7 +185,8 @@ export default function Login() {
                 <div className="login-demo-hint">
                     <p>👤 Warga: <strong>ahmad@lumbunghijau.id</strong></p>
                     <p>🚛 Kurir: <strong>joko@kurir.id</strong></p>
-                    <p>🔑 Password: <strong>password</strong></p>
+                    <p>🏪 Mitra: <strong>tini@mitra.id</strong></p>
+                    <p>🔑 Pass: <strong>password</strong></p>
                 </div>
             </div>
         </div>

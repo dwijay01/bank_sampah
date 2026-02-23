@@ -15,6 +15,7 @@ return new class extends Migration
             $table->integer('vouchers_redeemed')->default(0);
             $table->string('status')->default('Aktif'); // Aktif, Nonaktif
             $table->date('join_date');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
         });
     }

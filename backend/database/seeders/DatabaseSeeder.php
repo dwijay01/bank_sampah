@@ -134,12 +134,27 @@ class DatabaseSeeder extends Seeder
 
         // ===== WARUNG PARTNERS =====
         $partners = [
-            ['name' => 'Warung Bu Tini', 'address' => 'Jl. Kenanga No. 3', 'vouchers_redeemed' => 45, 'join_date' => '2025-08-15', 'status' => 'Aktif'],
-            ['name' => 'Toko Pak Rahmat', 'address' => 'Jl. Flamboyan No. 10', 'vouchers_redeemed' => 32, 'join_date' => '2025-09-20', 'status' => 'Aktif'],
-            ['name' => 'Warung Sejahtera', 'address' => 'Jl. Cemara No. 7', 'vouchers_redeemed' => 18, 'join_date' => '2025-11-01', 'status' => 'Nonaktif'],
+            ['name' => 'Warung Bu Tini', 'email' => 'tini@mitra.id', 'phone' => '08111111111', 'address' => 'Jl. Kenanga No. 3', 'vouchers_redeemed' => 45, 'join_date' => '2025-08-15', 'status' => 'Aktif'],
+            ['name' => 'Toko Pak Rahmat', 'email' => 'rahmat@mitra.id', 'phone' => '08111111112', 'address' => 'Jl. Flamboyan No. 10', 'vouchers_redeemed' => 32, 'join_date' => '2025-09-20', 'status' => 'Aktif'],
+            ['name' => 'Warung Sejahtera', 'email' => 'sejahtera@mitra.id', 'phone' => '08111111113', 'address' => 'Jl. Cemara No. 7', 'vouchers_redeemed' => 18, 'join_date' => '2025-11-01', 'status' => 'Nonaktif'],
         ];
         foreach ($partners as $p) {
-            WarungPartner::create($p);
+            $user = User::create([
+                'name' => "Pemilik " . $p['name'],
+                'email' => $p['email'],
+                'phone' => $p['phone'],
+                'password' => bcrypt('password'),
+                'role' => 'mitra',
+            ]);
+
+            WarungPartner::create([
+                'name' => $p['name'],
+                'address' => $p['address'],
+                'vouchers_redeemed' => $p['vouchers_redeemed'],
+                'join_date' => $p['join_date'],
+                'status' => $p['status'],
+                'user_id' => $user->id // Need to add this to migration and model later if linking is strict. But for now, just Auth will work.
+            ]);
         }
 
         // ===== RT/RW GROUPS =====
@@ -153,5 +168,8 @@ class DatabaseSeeder extends Seeder
         foreach ($groups as $g) {
             RtRwGroup::create($g);
         }
+
+        // ===== REWARDS (TOKO POIN) =====
+        $this->call(RewardSeeder::class);
     }
 }

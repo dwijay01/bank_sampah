@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, Mail, Phone, LogOut, ChevronRight, Leaf, Droplets, Cloud, TreePine } from 'lucide-react';
+import { User, Mail, Phone, LogOut, ChevronRight, Leaf, Droplets, Cloud, TreePine, Ticket } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 
 function authFetch(url) {
@@ -149,6 +149,17 @@ export default function Profile() {
 
             {/* Info items */}
             <div className="profile-section">
+                {isWarga && (
+                    <div className="profile-item" onClick={() => navigate('/app/vouchers')} style={{ cursor: 'pointer', background: '#F0FDF4' }}>
+                        <Ticket size={18} className="text-emerald-600" />
+                        <div className="profile-item-content">
+                            <span className="profile-item-label" style={{ color: '#059669', fontWeight: 'bold' }}>Dompet Voucher</span>
+                            <span className="profile-item-value" style={{ fontSize: '0.75rem' }}>Lihat voucher yang siap ditukar</span>
+                        </div>
+                        <ChevronRight size={18} className="profile-item-arrow" />
+                    </div>
+                )}
+
                 <div className="profile-item">
                     <Mail size={18} />
                     <div className="profile-item-content">

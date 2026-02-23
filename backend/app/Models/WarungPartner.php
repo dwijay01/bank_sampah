@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class WarungPartner extends Model
 {
-    protected $fillable = ['name', 'address', 'vouchers_redeemed', 'status', 'join_date'];
+    protected $fillable = ['name', 'address', 'vouchers_redeemed', 'status', 'join_date', 'user_id'];
 
     protected function casts(): array
     {

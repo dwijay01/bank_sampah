@@ -31,12 +31,20 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user/pickup-requests', [UserController::class, 'pickupRequests']);
     Route::get('/user/leaderboard', [UserController::class, 'leaderboard']);
     Route::get('/user/eco-report', [UserController::class, 'ecoReport']);
+    Route::get('/user/rewards', [\App\Http\Controllers\Api\RewardController::class, 'index']);
+    Route::post('/user/rewards/redeem', [\App\Http\Controllers\Api\RewardController::class, 'redeem']);
+    Route::get('/user/vouchers', [\App\Http\Controllers\Api\RewardController::class, 'myVouchers']);
 
     // ===== COURIER APP =====
     Route::get('/courier/assignments', [CourierController::class, 'assignments']);
     Route::post('/courier/validate-qr', [CourierController::class, 'validateQr']);
     Route::post('/courier/complete-pickup', [CourierController::class, 'completePickup']);
     Route::get('/courier/stats', [CourierController::class, 'stats']);
+
+    // ===== MITRA APP =====
+    Route::get('/partner/stats', [\App\Http\Controllers\Api\PartnerController::class, 'stats']);
+    Route::post('/partner/validate-voucher', [\App\Http\Controllers\Api\PartnerController::class, 'validateVoucher']);
+    Route::post('/partner/claim-voucher', [\App\Http\Controllers\Api\PartnerController::class, 'claimVoucher']);
 });
 
 // ===== ADMIN: DASHBOARD =====
