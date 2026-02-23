@@ -2445,3 +2445,262 @@ textarea {
 .empty-state p {
   font-size: 0.85rem;
 }
+
+/* ===== LEADERBOARD ===== */
+.leaderboard-header {
+  background: linear-gradient(135deg, var(--emerald), var(--emerald-dark));
+  color: white;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  padding: 30px 24px 70px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.leaderboard-header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.leaderboard-header h1 svg {
+  color: #FDE047;
+  /* yellow-300 */
+}
+
+.leaderboard-my-rank {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leaderboard-my-rank p {
+  color: #D1FAE5;
+  /* emerald-100 */
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.leaderboard-my-rank .text-3xl {
+  font-size: 1.875rem;
+  font-weight: 800;
+}
+
+.leaderboard-my-rank .text-yellow-300 {
+  color: #FDE047;
+}
+
+.leaderboard-list-container {
+  padding: 0 20px;
+  margin-top: -40px;
+  position: relative;
+  z-index: 10;
+}
+
+.leaderboard-list-container>.bg-white {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  padding: 12px;
+}
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.leaderboard-item:hover {
+  background: #F8FAFC;
+}
+
+.leaderboard-item.top-3 {
+  background: #F0FDF4;
+  /* emerald-50 */
+  border: 1px solid #D1FAE5;
+}
+
+.leaderboard-rank-icon {
+  width: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.leaderboard-avatar {
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #D1FAE5, #A7F3D0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  border: 1px solid rgba(167, 243, 208, 0.5);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+}
+
+.leaderboard-info {
+  flex: 1;
+  overflow: hidden;
+}
+
+.leaderboard-info h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1F2937;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.leaderboard-info p {
+  font-size: 0.75rem;
+  color: #059669;
+  /* emerald-600 */
+  font-weight: 500;
+}
+
+.leaderboard-points {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #D1FAE5;
+  /* emerald-100 */
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #A7F3D0;
+}
+
+.leaderboard-points span {
+  font-weight: 700;
+  color: #047857;
+  /* emerald-700 */
+  font-size: 0.9rem;
+}
+
+/* Utility for Flex fixing that Tailwind missed */
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-2 {
+  gap: 8px;
+}
+
+/* ===== ECO REPORT (Profile) ===== */
+.eco-report-card {
+  background: linear-gradient(135deg, #F0FDF4, #D1FAE5);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(167, 243, 208, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.eco-report-card h3 {
+  color: #065F46;
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.eco-report-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.eco-metric {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(4px);
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid #D1FAE5;
+  display: flex;
+  flex-direction: column;
+}
+
+.eco-metric.full-width {
+  grid-column: span 2;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.eco-metric .metric-icon {
+  margin-bottom: 8px;
+}
+
+.eco-metric.full-width .metric-icon {
+  margin-bottom: 0;
+  background: #D1FAE5;
+  padding: 10px;
+  border-radius: 10px;
+  color: #059669;
+}
+
+.eco-metric-label {
+  font-size: 0.75rem;
+  color: #6B7280;
+  font-weight: 500;
+}
+
+.eco-metric-value {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: #1F2937;
+}
+
+.eco-metric-value span {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.eco-metric.full-width .eco-metric-value {
+  font-size: 1.25rem;
+  color: #047857;
+}
+
+.eco-bg-icon {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  opacity: 0.1;
+  color: #059669;
+}
