@@ -1,6 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Trophy, Star, Award } from 'lucide-react';
-import api from '../../services/api';
+function authFetch(url) {
+    const token = localStorage.getItem('auth_token');
+    return fetch(url, {
+        headers: { Accept: 'application/json', Authorization: `Bearer ${token}` },
+    }).then((r) => {
+        if (!r.ok) throw new Error('Network error');
+        return r.json();
+    });
+}
 import confetti from 'canvas-confetti';
 
 export default function Leaderboard() {
@@ -15,13 +23,13 @@ export default function Leaderboard() {
 
     const fetchLeaderboard = async () => {
         try {
-            const res = await api.get('/user/leaderboard');
-            setLeaderboard(res.data.data);
-            setMyRank(res.data.my_rank);
-            setMyPoints(res.data.my_points);
+            const res = await authFetch('/api/user/leaderboard');
+            setLeaderboard(res.data);
+            setMyRank(res.my_rank);
+            setMyPoints(res.my_points);
 
             // trigger confetti if rank 1-3
-            if (res.data.my_rank <= 3 && res.data.my_points > 0) {
+            if (res.my_rank <= 3 && res.my_points > 0) {
                 triggerConfetti();
             }
         } catch (error) {
