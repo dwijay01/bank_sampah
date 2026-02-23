@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, Mail, Phone, LogOut, ChevronRight } from 'lucide-react';
+import { User, Mail, Phone, LogOut, ChevronRight, Leaf, Droplets, Cloud, TreePine } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 
 function authFetch(url) {
@@ -13,11 +13,18 @@ function authFetch(url) {
 export default function Profile() {
     const navigate = useNavigate();
     const [profile, setProfile] = useState(null);
+    const [ecoInfo, setEcoInfo] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        authFetch('/api/user/profile')
-            .then((d) => setProfile(d.data))
+        Promise.all([
+            authFetch('/api/user/profile'),
+            authFetch('/api/user/eco-report').catch(() => ({ data: null }))
+        ])
+            .then(([profRes, ecoRes]) => {
+                setProfile(profRes.data);
+                if (ecoRes.data) setEcoInfo(ecoRes.data);
+            })
             .finally(() => setLoading(false));
     }, []);
 
@@ -81,6 +88,40 @@ export default function Profile() {
                     <div className="profile-stat">
                         <span className="profile-stat-value">{user.total_transactions || 0}</span>
                         <span className="profile-stat-label">Transaksi</span>
+                    </div>
+                </div>
+            )}
+
+            {/* Eco Report Card — Warga Only */}
+            {isWarga && ecoInfo && (
+                <div className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-3xl p-5 mb-6 border border-green-200/50 shadow-sm relative overflow-hidden">
+                    <div className="absolute -right-4 -top-4 text-green-200/30">
+                        <Leaf size={120} />
+                    </div>
+                    <h3 className="text-green-800 font-bold mb-4 flex items-center gap-2 relative">
+                        <Leaf size={20} className="text-green-600" /> Rapor Ekologis Anda
+                    </h3>
+
+                    <div className="grid grid-cols-2 gap-3 relative">
+                        <div className="bg-white/80 backdrop-blur-sm p-3 rounded-2xl border border-green-100 flex flex-col shadow-sm">
+                            <Droplets size={20} className="text-blue-500 mb-2" />
+                            <span className="text-gray-500 text-xs font-medium">Air Dihemat</span>
+                            <span className="text-lg font-extrabold text-gray-800">{ecoInfo.water_saved_liters} <span className="text-xs font-normal">L</span></span>
+                        </div>
+                        <div className="bg-white/80 backdrop-blur-sm p-3 rounded-2xl border border-green-100 flex flex-col shadow-sm">
+                            <Cloud size={20} className="text-gray-400 mb-2" />
+                            <span className="text-gray-500 text-xs font-medium">CO2 Turun</span>
+                            <span className="text-lg font-extrabold text-gray-800">{ecoInfo.co2_reduced_kg} <span className="text-xs font-normal">Kg</span></span>
+                        </div>
+                        <div className="bg-white/80 backdrop-blur-sm p-3 rounded-2xl border border-green-100 flex flex-col col-span-2 flex-row items-center gap-4 shadow-sm">
+                            <div className="bg-green-100 p-2.5 rounded-xl text-green-600">
+                                <TreePine size={24} />
+                            </div>
+                            <div>
+                                <span className="text-gray-500 text-xs font-medium block">Setara Menanam Pohon</span>
+                                <span className="text-xl font-extrabold text-green-700">{ecoInfo.trees_equivalent} <span className="text-sm font-medium text-green-600">Pohon</span></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}

@@ -29,6 +29,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/user/dropoff', [UserController::class, 'createDropoff']);
     Route::post('/user/pickup-request', [UserController::class, 'createPickupRequest']);
     Route::get('/user/pickup-requests', [UserController::class, 'pickupRequests']);
+    Route::get('/user/leaderboard', [UserController::class, 'leaderboard']);
+    Route::get('/user/eco-report', [UserController::class, 'ecoReport']);
 
     // ===== COURIER APP =====
     Route::get('/courier/assignments', [CourierController::class, 'assignments']);

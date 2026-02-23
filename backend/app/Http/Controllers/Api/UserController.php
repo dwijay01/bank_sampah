@@ -7,6 +7,7 @@ use App\Models\Transaction;
 use App\Models\PickupRequest;
 use App\Models\WasteType;
 use App\Models\UserLevel;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -125,5 +126,55 @@ class UserController extends Controller
             'new_balance' => $user->eco_points,
             'message' => "Setor berhasil! +{$points} Eco-Points",
         ], 201);
+    }
+
+    /**
+     * Get Leaderboard of top Warga
+     */
+    public function leaderboard(Request $request)
+    {
+        $levels = UserLevel::all();
+        $users = User::where('role', 'warga')
+            ->orderBy('eco_points', 'desc')
+            ->take(50)
+            ->get(['id', 'name', 'eco_points']);
+
+        $users->transform(function ($user) use ($levels) {
+            $level = $levels->where('min_points', '<=', $user->eco_points)
+                            ->where('max_points', '>=', $user->eco_points)
+                            ->first();
+            $user->level_name = $level ? $level->name : 'Pemula';
+            $user->level_icon = $level ? $level->icon : '🌱';
+            return $user;
+        });
+
+        $currentUser = $request->user();
+        $myRank = User::where('role', 'warga')->where('eco_points', '>', $currentUser->eco_points)->count() + 1;
+
+        return response()->json([
+            'data' => $users,
+            'my_rank' => $myRank,
+            'my_points' => $currentUser->eco_points,
+        ]);
+    }
+
+    /**
+     * Get Eco Report metrics for the user
+     */
+    public function ecoReport(Request $request)
+    {
+        $user = $request->user();
+        $totalKg = Transaction::where('user_id', $user->id)
+            ->where('status', 'Selesai')
+            ->sum('weight_kg');
+
+        return response()->json([
+            'data' => [
+                'total_kg' => round($totalKg, 2),
+                'water_saved_liters' => round($totalKg * 17, 2),
+                'co2_reduced_kg' => round($totalKg * 2.5, 2),
+                'trees_equivalent' => floor($totalKg / 10),
+            ]
+        ]);
     }
 }

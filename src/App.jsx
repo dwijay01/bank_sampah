@@ -11,6 +11,7 @@ import Home from './pages/app/Home';
 import Dropoff from './pages/app/Dropoff';
 import Pickup from './pages/app/Pickup';
 import History from './pages/app/History';
+import Leaderboard from './pages/app/Leaderboard';
 import Profile from './pages/app/Profile';
 import CourierHome from './pages/app/CourierHome';
 import CourierScan from './pages/app/CourierScan';
@@ -38,6 +39,7 @@ export default function App() {
           <Route path="/app/dropoff" element={<Dropoff />} />
           <Route path="/app/pickup" element={<Pickup />} />
           <Route path="/app/history" element={<History />} />
+          <Route path="/app/leaderboard" element={<Leaderboard />} />
           <Route path="/app/profile" element={<Profile />} />
 
           {/* Courier routes */}
