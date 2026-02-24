@@ -8,6 +8,9 @@ const pageTitles = {
     '/admin/operations': 'Manajemen Operasional',
     '/admin/wallet': 'Dompet Hijau & Mitra',
     '/admin/gamification': 'Gamifikasi',
+    '/admin/rewards': 'Katalog Hadiah',
+    '/admin/redemptions': 'Pusat Penukaran',
+    '/admin/partners': 'Mitra Warung',
 };
 
 export default function Layout() {

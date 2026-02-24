@@ -1,11 +1,15 @@
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Truck, Wallet, Gamepad2, Recycle, X } from 'lucide-react';
+import { LayoutDashboard, Truck, Wallet, Gamepad2, Recycle, X, Gift, QrCode, Store } from 'lucide-react';
 
 const navItems = [
     { to: '/admin', label: 'Dashboard', icon: LayoutDashboard },
     { to: '/admin/operations', label: 'Operasional', icon: Truck },
     { to: '/admin/wallet', label: 'Dompet Hijau', icon: Wallet },
     { to: '/admin/gamification', label: 'Gamifikasi', icon: Gamepad2 },
+    // Toko Poin & Mitra
+    { to: '/admin/rewards', label: 'Katalog Hadiah', icon: Gift },
+    { to: '/admin/redemptions', label: 'Pusat Penukaran', icon: QrCode },
+    { to: '/admin/partners', label: 'Mitra Warung', icon: Store },
 ];
 
 export default function Sidebar({ isOpen, onClose }) {

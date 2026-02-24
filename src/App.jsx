@@ -22,6 +22,11 @@ import CourierScan from './pages/app/CourierScan';
 import PartnerHome from './pages/app/PartnerHome';
 import PartnerScan from './pages/app/PartnerScan';
 
+// Admin Toko Poin
+import RewardManagement from './pages/RewardManagement';
+import RedemptionCenter from './pages/RedemptionCenter';
+import PartnerHub from './pages/PartnerHub';
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -35,9 +40,11 @@ export default function App() {
           <Route path="/admin/operations" element={<Operations />} />
           <Route path="/admin/wallet" element={<Wallet />} />
           <Route path="/admin/gamification" element={<Gamification />} />
-        </Route>
 
-        {/* ===== USER MOBILE APP ===== */}
+          <Route path="/admin/rewards" element={<RewardManagement />} />
+          <Route path="/admin/redemptions" element={<RedemptionCenter />} />
+          <Route path="/admin/partners" element={<PartnerHub />} />
+        </Route>
         <Route path="/app/login" element={<Login />} />
         <Route element={<MobileLayout />}>
           {/* Warga routes */}

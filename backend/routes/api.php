@@ -82,3 +82,10 @@ Route::put('/user-levels/{id}', [UserLevelController::class, 'update']);
 // ===== ADMIN: LEADERBOARD =====
 Route::get('/leaderboard', [LeaderboardController::class, 'index']);
 Route::post('/leaderboard', [LeaderboardController::class, 'store']);
+
+// ===== ADMIN: TOKO POIN & MITRA (FASE 3.5) =====
+Route::apiResource('/admin/rewards', \App\Http\Controllers\Api\AdminRewardController::class);
+Route::get('/admin/vouchers', [\App\Http\Controllers\Api\AdminVoucherController::class, 'index']);
+Route::post('/admin/vouchers/scan', [\App\Http\Controllers\Api\AdminVoucherController::class, 'scan']);
+Route::get('/admin/partners', [\App\Http\Controllers\Api\AdminPartnerController::class, 'index']);
+Route::post('/admin/partners', [\App\Http\Controllers\Api\AdminPartnerController::class, 'store']);
